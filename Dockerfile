@@ -1,12 +1,17 @@
-FROM maven:3.9.2-eclipse-temurin-17 AS build
+# ===== Stage 1: Build =====
+FROM maven:3.9.5-eclipse-temurin-17 AS builder
 WORKDIR /app
+
 COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jdk-slim
+# ===== Stage 2: Run =====
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-EXPOSE 9095
-ENV PORT=9095
-ENTRYPOINT ["java","-jar","app.jar"]
+COPY --from=builder /app/target/*.jar app.jar
+EXPOSE 9590
+ENV PORT=9590
+ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=${PORT}"]

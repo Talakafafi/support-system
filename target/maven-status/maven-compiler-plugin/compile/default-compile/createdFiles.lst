@@ -1,0 +1,10 @@
+com\example\Support\System\model\SupportTicketMapper.class
+com\example\Support\System\entity\support\SupportRepository.class
+com\example\Support\System\entity\ApplicationRepository.class
+com\example\Support\System\entity\support\SupportTicket.class
+com\example\Support\System\model\SupportTicketModel$SupportTicketModelBuilder.class
+com\example\Support\System\service\SupportService.class
+com\example\Support\System\controller\SupportController.class
+com\example\Support\System\model\SupportTicketModel.class
+com\example\Support\System\SupportSystemApplication.class
+com\example\Support\System\entity\support\Status.class
