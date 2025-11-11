@@ -6,13 +6,13 @@ WORKDIR /app
 # Copy pom.xml first to cache dependencies
 COPY pom.xml .
 
-RUN mvn dependency:go-offline
+RUN mvn dependency:go-offline -B
 
 # Copy source code
 COPY src ./src
 
 # Build jar (skip tests to speed up)
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -B
 
 # Stage 2: Run the app
 FROM eclipse-temurin:17-jdk
@@ -23,7 +23,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Expose port your app runs on
-EXPOSE 9090
+EXPOSE 9590
 
 # Run the Spring Boot app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]

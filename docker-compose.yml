@@ -1,26 +1,38 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  support-system:
-    image: your-dockerhub-username/support-system:latest
-    ports:
-      - "9090:9090"
+  postgres:
+    image: postgres:16
+    container_name: postgres-db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:sqlserver://db:1433;databaseName=console
-      SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD: Talapass123!
-    depends_on:
-      - db
-
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Talapass123!"
+      POSTGRES_DB: support_console
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: newpassword
     ports:
-      - "1433:1433"
+      - "5432:5432"
     volumes:
-      - sqlserver-data:/var/opt/mssql
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - support-network
+
+  app:
+    build: .
+    container_name: support-system
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/support_console
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: newpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 9590
+    ports:
+      - "9590:9590"
+    networks:
+      - support-network
 
 volumes:
-  sqlserver-data:
+  postgres-data:
+
+networks:
+  support-network:
