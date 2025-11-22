@@ -81,6 +81,7 @@ public class SupportTicket {
         this.customerName = customerName;
     }
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "severity")
     public Severity getSeverity() {
         return severity;
