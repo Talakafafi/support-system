@@ -1,5 +1,6 @@
 package com.example.Support.System.service;
 
+import com.example.Support.System.entity.support.Severity;
 import com.example.Support.System.entity.support.Status;
 import com.example.Support.System.entity.support.SupportRepository;
 import com.example.Support.System.entity.support.SupportTicket;
@@ -10,9 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SupportService {
@@ -31,6 +32,8 @@ public class SupportService {
         supportTicketModel.setRootCauseAnalyticsDescription("Mock RCA description");
         supportTicketModel.setRootCauseAnalyticsDate(LocalDateTime.now().plusDays(90));
 
+        supportTicketModel.setSeverity(Severity.OPENED);
+
         supportTicketModel.setCorrectiveActions("Mock corrective action");
         supportTicketModel.setPreventiveActions("Mock preventive action");
         supportTicketModel.setPreventiveActionPlanDueDate(LocalDateTime.now().plusDays(7));
@@ -45,9 +48,36 @@ public class SupportService {
         return SupportTicketMapper.toModel(supportRepository.getById(id));
     }
 
-    public SupportTicketModel updateTicket(SupportTicketModel supportTicketModel) {
-        SupportTicket ticketEntity = SupportTicketMapper.toEntity(supportTicketModel);
-        return SupportTicketMapper.toModel(supportRepository.save(ticketEntity));
+    public SupportTicketModel updateTicket(final String id, SupportTicketModel model) {
+        SupportTicket ticket = supportRepository.getById(id);
+
+        Optional.ofNullable(model.getUserName()).ifPresent(ticket::setUserName);
+        Optional.ofNullable(model.getEmail()).ifPresent(ticket::setEmail);
+        Optional.ofNullable(model.getStatus()).ifPresent(ticket::setStatus);
+
+        Optional.ofNullable(model.getCustomerName()).ifPresent(ticket::setCustomerName);
+        Optional.ofNullable(model.getSeverity()).ifPresent(ticket::setSeverity);
+        Optional.ofNullable(model.getSummary()).ifPresent(ticket::setSummary);
+        Optional.ofNullable(model.getDescription()).ifPresent(ticket::setDescription);
+        Optional.ofNullable(model.getProblemType()).ifPresent(ticket::setProblemType);
+        Optional.ofNullable(model.getAffectedEnvironment()).ifPresent(ticket::setAffectedEnvironment);
+
+        Optional.ofNullable(model.getSlaScopeEnabled()).ifPresent(ticket::setSlaScopeEnabled);
+        Optional.ofNullable(model.getResponseSlaHours()).ifPresent(ticket::setResponseSlaHours);
+
+        Optional.ofNullable(model.getCreatedAt()).ifPresent(ticket::setCreatedAt);
+        Optional.ofNullable(model.getStartedAt()).ifPresent(ticket::setStartedAt);
+        Optional.ofNullable(model.getExpectedClosedAt()).ifPresent(ticket::setExpectedClosedAt);
+
+        Optional.ofNullable(model.getEndPoint()).ifPresent(ticket::setEndPoint);
+        Optional.ofNullable(model.getRootCauseAnalyticsDescription()).ifPresent(ticket::setRootCauseAnalyticsDescription);
+        Optional.ofNullable(model.getRootCauseAnalyticsDate()).ifPresent(ticket::setRootCauseAnalyticsDate);
+        Optional.ofNullable(model.getCorrectiveActions()).ifPresent(ticket::setCorrectiveActions);
+        Optional.ofNullable(model.getPreventiveActions()).ifPresent(ticket::setPreventiveActions);
+        Optional.ofNullable(model.getPreventiveActionPlanDueDate()).ifPresent(ticket::setPreventiveActionPlanDueDate);
+        Optional.ofNullable(model.getLessonsLearnt()).ifPresent(ticket::setLessonsLearnt);
+
+        return SupportTicketMapper.toModel(supportRepository.save(ticket));
     }
 
     public List<SupportTicketModel> getAllTicketByConsumer(final String name) {

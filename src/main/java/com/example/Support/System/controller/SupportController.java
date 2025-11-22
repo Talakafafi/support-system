@@ -30,9 +30,10 @@ public class SupportController {
         return ResponseEntity.ok(supportService.getTicket(id));
     }
 
-    @PutMapping
-    public ResponseEntity<SupportTicketModel> updateTicket(@RequestBody final SupportTicketModel supportTicketModel) {
-        return ResponseEntity.ok(supportService.updateTicket(supportTicketModel));
+    @PutMapping("/{id}")
+    public ResponseEntity<SupportTicketModel> updateTicket(@PathVariable final String id,
+                                                           @RequestBody final SupportTicketModel supportTicketModel) {
+        return ResponseEntity.ok(supportService.updateTicket(id, supportTicketModel));
     }
 
     @GetMapping("/all")

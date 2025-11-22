@@ -50,7 +50,7 @@ public class SupportTicketMapper {
         ticket.setId(CustomIdGenerator.generateId());
         ticket.setUserName(model.getUserName());
         ticket.setEmail(model.getEmail());
-        ticket.setStatus(model.getStatus()); // kept as you defined
+        ticket.setStatus(model.getStatus());
 
         ticket.setCustomerName(model.getCustomerName());
         ticket.setSeverity(model.getSeverity());
