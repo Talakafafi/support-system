@@ -1,5 +1,6 @@
 package com.example.Support.System.model;
 
+import com.example.Support.System.entity.support.CustomIdGenerator;
 import com.example.Support.System.entity.support.Status;
 import com.example.Support.System.entity.support.SupportTicket;
 
@@ -10,7 +11,7 @@ public class SupportTicketMapper {
 
         SupportTicketModel model = new SupportTicketModel();
 
-        model.setId(ticket.getId());
+        model.setId(CustomIdGenerator.generateId());
         model.setUserName(ticket.getUserName());
         model.setEmail(ticket.getEmail());
         model.setStatus(ticket.getStatus());

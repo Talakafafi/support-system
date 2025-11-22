@@ -5,3 +5,9 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/sql/init.sql
+  - changeSet:
+      id: 2
+      author: tala
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/alter-table.sql

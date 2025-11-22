@@ -26,7 +26,7 @@ public class SupportController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SupportTicketModel> getTicket(@PathVariable final Long id) {
+    public ResponseEntity<SupportTicketModel> getTicket(@PathVariable final String id) {
         return ResponseEntity.ok(supportService.getTicket(id));
     }
 
@@ -40,12 +40,12 @@ public class SupportController {
         return ResponseEntity.ok(supportService.getAllTicketByConsumer(name));
     }
 
-    @GetMapping
+    @GetMapping("/consumer")
     public ResponseEntity<List<SupportTicketModel>> getAllTicketPages(@RequestParam final String name) {
         return ResponseEntity.ok(supportService.getAllTicketByConsumer(name));
     }
 
-    @GetMapping("/tickets")
+    @GetMapping
     public PageResponse<SupportTicketModel> getTickets(
             @RequestParam(required = false) Status status,
             @RequestParam(required = false) String consumerName,

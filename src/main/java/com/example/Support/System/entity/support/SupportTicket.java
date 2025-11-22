@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "SUPPORT_TICKET")
 public class SupportTicket {
-    private Long id;
+    private String id;
     private String userName;
     private String email;
     private Status status;
@@ -33,13 +33,11 @@ public class SupportTicket {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "support_ticket_seq")
-    @SequenceGenerator(name = "support_ticket_seq", sequenceName = "support_ticket_seq", allocationSize = 1)
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

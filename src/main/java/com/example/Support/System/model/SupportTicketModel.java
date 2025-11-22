@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SupportTicketModel {
 
-    private Long id;
+    private String id;
     private String userName;
     private String email;
     private Status status;

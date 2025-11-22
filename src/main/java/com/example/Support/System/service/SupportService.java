@@ -41,7 +41,7 @@ public class SupportService {
         return SupportTicketMapper.toModel(supportRepository.save(ticketEntity));
     }
 
-    public SupportTicketModel getTicket(final Long id) {
+    public SupportTicketModel getTicket(final String id) {
         return SupportTicketMapper.toModel(supportRepository.getById(id));
     }
 

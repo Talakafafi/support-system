@@ -11,7 +11,7 @@ import java.net.http.HttpHeaders;
 import java.util.List;
 
 @Repository
-public interface SupportRepository extends ApplicationRepository<SupportTicket, Long> {
+public interface SupportRepository extends ApplicationRepository<SupportTicket, String> {
     List<SupportTicket> getSupportTicketByCustomerName(String name);
 
     Page<SupportTicket> findAll(Specification<SupportTicket> spec, Pageable pageable);
