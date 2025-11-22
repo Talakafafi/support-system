@@ -29,7 +29,7 @@ public class SupportService {
 
         supportTicketModel.setEndPoint("/mock/endpoint");
         supportTicketModel.setRootCauseAnalyticsDescription("Mock RCA description");
-        supportTicketModel.setRootCauseAnalyticsDate(LocalDateTime.from(Instant.now()).plusDays(90));
+        supportTicketModel.setRootCauseAnalyticsDate(LocalDateTime.now().plusDays(90));
 
         supportTicketModel.setCorrectiveActions("Mock corrective action");
         supportTicketModel.setPreventiveActions("Mock preventive action");
