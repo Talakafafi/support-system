@@ -11,7 +11,7 @@ public class SupportTicketMapper {
 
         SupportTicketModel model = new SupportTicketModel();
 
-        model.setId(CustomIdGenerator.generateId());
+        model.setId(ticket.getId());
         model.setUserName(ticket.getUserName());
         model.setEmail(ticket.getEmail());
         model.setStatus(ticket.getStatus());
@@ -47,7 +47,7 @@ public class SupportTicketMapper {
 
         SupportTicket ticket = new SupportTicket();
 
-        ticket.setId(model.getId());
+        ticket.setId(CustomIdGenerator.generateId());
         ticket.setUserName(model.getUserName());
         ticket.setEmail(model.getEmail());
         ticket.setStatus(model.getStatus()); // kept as you defined
